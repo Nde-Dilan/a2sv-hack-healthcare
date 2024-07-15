@@ -32,6 +32,7 @@ const RequestSuccess = async ({
 
         <section className="flex flex-col items-center">
           <Image
+          unoptimized
             src="/assets/gifs/success.gif"
             height={300}
             width={280}
