@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Script from "next/script";
 import { Plus_Jakarta_Sans as FontSans } from "next/font/google";
+import Script from "next/script";
 import { ThemeProvider } from "next-themes";
 
 import { cn } from "@/lib/utils";
