@@ -9,6 +9,10 @@ import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
 const AdminPage = async () => {
   const appointments = await getRecentAppointmentList();
 
+  if(true){
+    return;
+  }
+
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       <header className="admin-header">
