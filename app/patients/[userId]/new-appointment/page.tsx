@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { AppointmentForm } from "@/components/forms/AppointmentForm";
 import { Button } from "@/components/ui/button";
@@ -11,23 +12,32 @@ const Appointment = async ({ params: { userId } }: SearchParamProps) => {
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[860px] flex-1 justify-between">
-          <Image
-            src="/assets/icons/logo-full.svg"
-            height={1000}
-            width={1000}
-            alt="logo"
-            className="mb-12 h-10 w-fit"
-          />
-<Button asChild size="sm" variant="ghost" className="bg-green-500 ">
-      <a
-        target="_blank"
-        href="https://carepulse-ai.vercel.app/"
-        rel="noopener noreferrer"
-      >
-        {/* <IconMessage /> */}
-        <span className="rounded-lg gap-1 md:flex">Chat with AI</span>
-      </a>
-    </Button>
+          <div className="flex justify-between">
+            <Image
+              src="/assets/icons/logo-full.svg"
+              height={1000}
+              width={1000}
+              alt="logo"
+              className="mb-12 h-10 w-fit"
+            />
+            <div className="flex justify-center">
+              <Button variant="outline" className="shad-primary-btn" asChild>
+                    <Link
+                      target="_blank"
+                      href="https://carepulse-ai.vercel.app/"
+                      rel="noopener noreferrer"
+                    >
+                      {/* <IconMessage /> */}
+                      Chat with AI
+                    </Link>
+                  </Button>
+                  <Button variant="outline" className="shad-primary-btn" asChild>
+              <Link href={`/my-app/${userId}`} >
+                My Appointments
+              </Link>
+                        </Button>
+            </div>
+          </div>
 
           <AppointmentForm
             patientId={patient?.$id}

@@ -28,8 +28,7 @@ export const PatientForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof UserFormValidation>) => {
-    alert("Form submitted, the other side is still in progress");
-    return;
+
     setIsLoading(true);
 
     try {
@@ -44,6 +43,7 @@ export const PatientForm = () => {
       if (newUser) {
         router.push(`/patients/${newUser.$id}/register`);
       }
+      
     } catch (error) {
       console.log(error);
     }

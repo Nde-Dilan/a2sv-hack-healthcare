@@ -68,11 +68,21 @@ const RequestSuccess = async ({
           </div>
         </section>
 
-        <Button variant="outline" className="shad-primary-btn" asChild>
-          <Link href={`/patients/${userId}/new-appointment`}>
-            New Appointment
-          </Link>
-        </Button>
+        <div className="flex justify-center px-[5%] ">
+          <Button variant="outline" className="shad-primary-btn mx-3" asChild>
+            <Link href={`/patients/${userId}/new-appointment`}>
+              New Appointment
+            </Link>
+          </Button>
+          {`
+          
+          `}
+          <Button variant="outline" className="shad-primary-btn" asChild>
+            <Link href={`/my-app/${userId}`}>
+              My Appointments
+            </Link>
+          </Button>
+        </div>
 
         <p className="copyright">© 2024 CarePluse</p>
       </div>

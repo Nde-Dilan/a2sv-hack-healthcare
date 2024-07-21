@@ -2,7 +2,7 @@ import clsx from "clsx";
 import Image from "next/image";
 
 type StatCardProps = {
-  type: "appointments" | "pending" | "cancelled";
+  type: "appointments" | "pending" | "cancelled" | "past" | "current" | "upcoming";
   count: number;
   label: string;
   icon: string;

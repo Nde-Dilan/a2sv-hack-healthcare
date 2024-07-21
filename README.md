@@ -19,10 +19,9 @@
 ## 📋 <a name="table">Table of Contents</a>
 
 1. 🤖 [Introduction](#introduction)
-2. ⚙️ [Tech Stack](#tech-stack)
-3. 🔋 [Folder Structure](#folder-structure)
-4. 🔋 [Purpose](#purpose)
-4. 📜 [Figma File we found](https://www.figma.com/design/kWioE0fyIqd6pbWIZfOcEM/Healthcare-System?ck_subscriber_id=2095049958&node-id=2-2&t=vKONn57pd2nBAbqX-1&utm_campaign=Landing%20Page%20or%20Form%20-%206650921&utm_medium=email&utm_source=convertkit)
+2. 🔋 [Folder Structure](#folder-structure)
+3. 🔋 [Purpose](#purpose)
+4. 📜 [Figma File we found](https://www.figma.com/design/hEBgYuzEctB06W7zHQHwy5/Healthcare-System-(Copy)?node-id=2-2&t=NDU3QIhSW0fnouqX-0)
 5. ⚙️ [How Generative AI Models Power CarePulse](#carepulse)
 
 
@@ -30,8 +29,6 @@
 
 Welcome to **CarePulse** the AI-Powered Traditional Medicine Advisor GitHub repository! This innovative platform combines artificial intelligence with traditional Cameroonian medicine to provide accessible, culturally relevant health guidance. Our application aims to bridge the gap between modern technology and centuries-old healing wisdom, offering immediate health advice and preserving valuable traditional knowledge.
 
-
-## <a name="tech-stack">⚙️ Folder Structure</a>
 
 ## <a name="folder-structure">⚙️ Folder Structure</a>
 

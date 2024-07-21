@@ -4,10 +4,13 @@ import Link from "next/link";
 import { StatCard } from "@/components/StatCard";
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/DataTable";
-import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
+import { getRecentAppointmentListForUser } from "@/lib/actions/appointment.actions";
+// import { getPatientAppointmentList } from "@/lib/actions/appointment.actions";
 
-const AdminPage = async () => {
-  const appointments = await getRecentAppointmentList();
+const PatientPage = async ({ params: { userId } }: SearchParamProps) => {
+  console.log(userId);
+  
+    const appointments = await getRecentAppointmentListForUser(userId);
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
@@ -22,36 +25,34 @@ const AdminPage = async () => {
           />
         </Link>
 
-        <p className="text-16-semibold">Admin Dashboard</p>
+        <p className="text-16-semibold">Patient Dashboard</p>
       </header>
 
       <main className="admin-main">
         <section className="w-full space-y-4">
           <h1 className="header">Welcome 👋</h1>
           <p className="text-dark-700">
-            Start the day with managing new appointments
+            Here are your past, current, and upcoming appointments
           </p>
         </section>
 
         <section className="admin-stat">
           <StatCard
-            type="appointments"
-            count={appointments?.scheduledCount}
-            label="Scheduled appointments"
+            type="past"
+            count={appointments?.pastCount}
+            label="Past appointments"
+            icon={"/assets/icons/cancelled.svg"}          />
+          <StatCard
+            type="current"
+            count={appointments.currentCount}
+            label="Current appointments"
             icon={"/assets/icons/appointments.svg"}
           />
           <StatCard
-            type="pending"
-            count={appointments.pendingCount}
-            label="Pending appointments"
-            icon={"/assets/icons/pending.svg"}
-          />
-          <StatCard
-            type="cancelled"
-            count={appointments.cancelledCount}
-            label="Cancelled appointments"
-            icon={"/assets/icons/cancelled.svg"}
-          />
+            type="upcoming"
+            count={appointments.upcomingCount}
+            label="Upcoming appointments"
+            icon={"/assets/icons/pending.svg"}          />
         </section>
 
         <DataTable columns={columns} data={appointments.documents} />
@@ -60,4 +61,4 @@ const AdminPage = async () => {
   );
 };
 
-export default AdminPage;
+export default PatientPage;

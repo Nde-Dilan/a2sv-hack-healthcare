@@ -35,14 +35,18 @@ export function DataTable<TData, TValue>({
     typeof window !== "undefined"
       ? window.localStorage.getItem("accessKey")
       : null;
+  const patientKey =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("patientKey")
+      : null;
 
   useEffect(() => {
     const accessKey = encryptedKey && decryptKey(encryptedKey);
 
-    if (accessKey !== process.env.NEXT_PUBLIC_ADMIN_PASSKEY!.toString()) {
+    if (accessKey !== process.env.NEXT_PUBLIC_ADMIN_PASSKEY!.toString() && !(patientKey !== null && patientKey !== undefined && patientKey !== "")) {
       redirect("/");
     }
-  }, [encryptedKey]);
+  }, [encryptedKey,patientKey]);
 
   const table = useReactTable({
     data,

@@ -59,6 +59,8 @@ const RegisterForm = ({ user }: { user: User }) => {
     }
 
     try {
+      localStorage.setItem("patientKey", user.$id);
+
       const patient = {
         userId: user.$id,
         name: values.name,
@@ -83,6 +85,8 @@ const RegisterForm = ({ user }: { user: User }) => {
           ? formData
           : undefined,
         privacyConsent: values.privacyConsent,
+        disclosureConsent: values.disclosureConsent,
+        treatmentConsent: values.treatmentConsent,
       };
 
       const newPatient = await registerPatient(patient);
