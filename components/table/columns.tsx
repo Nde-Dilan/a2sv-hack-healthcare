@@ -22,7 +22,7 @@ export const columns: ColumnDef<Appointment>[] = [
     header: "Patient",
     cell: ({ row }) => {
       const appointment = row.original;
-      return <p className="text-14-medium ">{appointment.patient.name}</p>;
+      return <p className="text-14-medium ">{appointment.patient?.name}</p>;
     },
   },
   {
@@ -56,7 +56,7 @@ export const columns: ColumnDef<Appointment>[] = [
       const appointment = row.original;
 
       const doctor = Doctors.find(
-        (doctor) => doctor.name === appointment.primaryPhysician
+        (doctor) => doctor?.name === appointment.primaryPhysician
       );
 
       return (
@@ -82,7 +82,7 @@ export const columns: ColumnDef<Appointment>[] = [
       return (
         <div className="flex gap-1">
           <AppointmentModal
-            patientId={appointment.patient.$id}
+            patientId={appointment.patient?.$id}
             userId={appointment.userId}
             appointment={appointment}
             type="schedule"
@@ -90,7 +90,7 @@ export const columns: ColumnDef<Appointment>[] = [
             description="Please confirm the following details to schedule."
           />
           <AppointmentModal
-            patientId={appointment.patient.$id}
+            patientId={appointment.patient?.$id}
             userId={appointment.userId}
             appointment={appointment}
             type="cancel"

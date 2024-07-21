@@ -34,7 +34,7 @@ const RegisterForm = ({ user }: { user: User }) => {
     resolver: zodResolver(PatientFormValidation),
     defaultValues: {
       ...PatientFormDefaultValues,
-      name: user.name,
+      name: user?.name,
       email: user.email,
       phone: user.phone,
     },
@@ -55,15 +55,15 @@ const RegisterForm = ({ user }: { user: User }) => {
 
       formData = new FormData();
       formData.append("blobFile", blobFile);
-      formData.append("fileName", values.identificationDocument[0].name);
+      formData.append("fileName", values.identificationDocument[0]?.name);
     }
 
     try {
-      localStorage.setItem("patientKey", user.$id);
+      localStorage.setItem("patientKey", user?.$id);
 
       const patient = {
-        userId: user.$id,
-        name: values.name,
+        userId: user?.$id,
+        name: values?.name,
         email: values.email,
         phone: values.phone,
         birthDate: new Date(values.birthDate),
@@ -92,7 +92,7 @@ const RegisterForm = ({ user }: { user: User }) => {
       const newPatient = await registerPatient(patient);
 
       if (newPatient) {
-        router.push(`/patients/${user.$id}/new-appointment`);
+        router.push(`/patients/${user?.$id}/new-appointment`);
       }
     } catch (error) {
       console.log(error);
@@ -237,7 +237,7 @@ const RegisterForm = ({ user }: { user: User }) => {
             placeholder="Select a physician"
           >
             {Doctors.map((doctor, i) => (
-              <SelectItem key={doctor.name + i} value={doctor.name}>
+              <SelectItem key={doctor?.name + i} value={doctor?.name}>
                 <div className="flex cursor-pointer items-center gap-2">
                   <Image
                     src={doctor.image}
@@ -246,7 +246,7 @@ const RegisterForm = ({ user }: { user: User }) => {
                     alt="doctor"
                     className="rounded-full border border-dark-500"
                   />
-                  <p>{doctor.name}</p>
+                  <p>{doctor?.name}</p>
                 </div>
               </SelectItem>
             ))}

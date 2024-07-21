@@ -7,8 +7,25 @@ import { DataTable } from "@/components/table/DataTable";
 import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
 
 const AdminPage = async () => {
-  const appointments = await getRecentAppointmentList();
+   // Fetch the recent appointments
+   const appointments = await getRecentAppointmentList();
 
+   // Return early with a loading state or an error message if appointments is null
+   if (!appointments) {
+     return (
+       <div className="mx-auto flex max-w-7xl flex-col space-y-14">
+         <p className="text-center text-red-500">Failed to load appointments. Please try again later.</p>
+       </div>
+     );
+   }
+ 
+   // Ensure each property on the appointments object has a fallback
+   const scheduledCount = appointments?.scheduledCount ?? 0;
+   const pendingCount = appointments?.pendingCount ?? 0;
+   const cancelledCount = appointments?.cancelledCount ?? 0;
+   const documents = appointments?.documents ?? [];
+
+   console.log(scheduledCount, pendingCount, cancelledCount, documents);
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       <header className="admin-header">

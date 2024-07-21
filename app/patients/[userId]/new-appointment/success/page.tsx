@@ -14,7 +14,7 @@ const RequestSuccess = async ({
   const appointment = await getAppointment(appointmentId);
 
   const doctor = Doctors.find(
-    (doctor) => doctor.name === appointment.primaryPhysician
+    (doctor) => doctor?.name === appointment.primaryPhysician
   );
 
   return (
@@ -32,7 +32,7 @@ const RequestSuccess = async ({
 
         <section className="flex flex-col items-center">
           <Image
-          unoptimized
+            unoptimized
             src="/assets/gifs/success.gif"
             height={300}
             width={280}
@@ -78,9 +78,7 @@ const RequestSuccess = async ({
           
           `}
           <Button variant="outline" className="shad-primary-btn" asChild>
-            <Link href={`/my-app/${userId}`}>
-              My Appointments
-            </Link>
+            <Link href={`/my-app/${userId}`}>My Appointments</Link>
           </Button>
         </div>
 

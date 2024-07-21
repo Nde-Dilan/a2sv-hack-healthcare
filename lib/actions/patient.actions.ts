@@ -23,7 +23,7 @@ export const createUser = async (user: CreateUserParams) => {
       user.email,
       user.phone,
       undefined,
-      user.name
+      user?.name
     );
 
     return parseStringify(newuser);
@@ -38,7 +38,6 @@ export const createUser = async (user: CreateUserParams) => {
 
       return existingUser.users[0];
     }
-    
   }
 };
 
@@ -81,9 +80,9 @@ export const registerPatient = async ({
       PATIENT_COLLECTION_ID!,
       ID.unique(),
       {
-        identificationDocumentId: file?.$id ? file.$id : null,
+        identificationDocumentId: file?.$id ? file?.$id : null,
         identificationDocumentUrl: file?.$id
-          ? `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view??project=${PROJECT_ID}`
+          ? `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file?.$id}/view??project=${PROJECT_ID}`
           : null,
         ...patient,
       }
