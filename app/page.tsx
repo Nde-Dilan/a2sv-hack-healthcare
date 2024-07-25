@@ -3,9 +3,19 @@ import Link from "next/link";
 
 import { PatientForm } from "@/components/forms/PatientForm";
 import { PasskeyModal } from "@/components/PasskeyModal";
+import RecordList from "@/components/record/RecordList";
+import { Button } from "@/components/ui/button";
+import UploadRecord from "@/components/forms/UploadRecord";
 
 const Home = ({ searchParams }: SearchParamProps) => {
   const isAdmin = searchParams?.admin === "true";
+
+  let user = {
+    $id:"123456",
+    name: "Jonh",
+    email:"john@gmail.com",
+    phone:"69999999",
+  }
 
   return (
     <div className="flex h-screen max-h-screen">
@@ -20,8 +30,20 @@ const Home = ({ searchParams }: SearchParamProps) => {
             alt="patient"
             className="mb-12 h-10 w-fit"
           />
-
-          <PatientForm />
+          <h1 className="text-xl font-bold">Have a look at your records!</h1>
+          <br />
+          <br />
+          <div className="announcement font-bold">
+          🚨 📢 Your documents are securly stored in our cloud. You can delete them from there at anytime.
+          </div>
+          <br />
+          <br />
+          <UploadRecord user={user} />
+          <div>
+            <Button className="add-record font-bold">
+            Add record
+            </Button>
+          </div>
 
           <div className="text-14-regular mt-20 flex justify-between">
             <p className="justify-items-end text-dark-600 xl:text-left">
@@ -34,13 +56,13 @@ const Home = ({ searchParams }: SearchParamProps) => {
         </div>
       </section>
 
-      <Image
+      {/* <Image
         src="/assets/images/onboarding-img.png"
         height={1000}
         width={1000}
         alt="patient"
         className="side-img max-w-[50%]"
-      />
+      /> */}
     </div>
   );
 };

@@ -76,6 +76,21 @@ export const PatientFormValidation = z.object({
     }),
 });
 
+
+export const UploadRecordValidation = z.object({
+  name: z
+    .string()
+    .min(2, "Name must be at least 2 characters")
+    .max(50, "Name must be at most 50 characters"),
+  birthDate: z.coerce.date(),
+  primaryPhysician: z.string().min(2, "Select at least one doctor"),
+  recordDocument: z
+    .custom<File[]>()
+    .refine((files) => files && files.length > 0, "Please upload at least one document")
+    .optional(),
+  notes: z.string().optional(),
+});
+
 export const CreateAppointmentSchema = z.object({
   primaryPhysician: z.string().min(2, "Select at least one doctor"),
   schedule: z.coerce.date(),

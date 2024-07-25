@@ -17,6 +17,7 @@
 /build
 
 # misc
+./carepulse-5ed3c-firebase-adminsdk-3r98l-780370929c.json
 .DS_Store
 *.pem
 

@@ -20,6 +20,11 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        'xs': '283px',   // Custom breakpoint for single column
+        'sm': '383px',   // Custom breakpoint for two columns
+        'md': '680px',   // Existing breakpoint for three columns
+      },
       colors: {
         green: {
           500: "#24AE7C",

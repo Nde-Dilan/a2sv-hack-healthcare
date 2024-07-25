@@ -277,6 +277,22 @@
   }
 }
 
+.add-record {
+  background-color: #24ae7c !important;
+  position: fixed ;
+  color: white !important;
+  bottom: 0;
+  right: 0;
+  margin: 0 10px 10px 0;
+}
+
+.announcement {
+  background-color: #24ae7c;
+  padding: 20px;
+  border: 1px solid white;
+  border-radius: 1.2rem;
+}
+
 /* =====  REACT-DATEPICKER OVERRIDES */
 .react-datepicker-wrapper.date-picker {
   display: flex;

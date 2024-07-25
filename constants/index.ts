@@ -77,6 +77,10 @@ export const Doctors = [
     image: "/assets/images/dr-sharma.png",
     name: "Hardik Sharma",
   },
+  {
+    image: "/assets/images/dr-sharma.png",
+    name: "Other",
+  },
 ];
 
 export const StatusIcon = {
