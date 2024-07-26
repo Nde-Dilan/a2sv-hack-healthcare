@@ -40,8 +40,8 @@ export const registerRecord = async ({
   
         // Create a folder structure: userId/records/fileName
         const timestamp = new Date().getTime();
-        const file_name = `${randomUUID()}_${timestamp}_${fileName}`;
-        filePath = `users/${userId}/records/${file_name}`;
+        const fileName2 = `${randomUUID()}_${timestamp}_${fileName}`;
+        filePath = `users/${userId}/records/${fileName2}`;
   
         const bucket = firebaseStorage.bucket();
         const file = bucket.file(filePath);
@@ -70,7 +70,7 @@ export const registerRecord = async ({
                 randomUUID(),
                 {
                   userId,
-                  recordDocumentId: file_name,
+                  recordDocumentId: fileName2,
                   recordDocumentPath: filePath,
                   recordDocumentUrl: fileUrl,
                   ...record,

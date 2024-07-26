@@ -10,7 +10,7 @@ import UploadRecord from "@/components/forms/UploadRecord";
 const Home = ({ searchParams }: SearchParamProps) => {
   const isAdmin = searchParams?.admin === "true";
 
-  let user = {
+  const user = {
     $id:"123456",
     name: "Jonh",
     email:"john@gmail.com",

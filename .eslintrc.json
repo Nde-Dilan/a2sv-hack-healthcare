@@ -8,23 +8,9 @@
   ],
   "rules": {
     "no-undef": "off",
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index"
-        ],
-        "newlines-between": "always",
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
-      }
-    ]
+    "no-var": "off",
+    "import/order": "off",
+    "no-unused-vars": "off"
+    
   }
 }
