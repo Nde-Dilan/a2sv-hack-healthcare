@@ -14,7 +14,8 @@ import {
   PATIENT_COLLECTION_ID,
 } from "../appwrite.config";
 import { parseStringify } from "../utils";
-
+import { firebaseStorage } from "../firebaseAdmin";
+import { randomUUID } from "crypto";
 // REGISTER RECORD
 
 // Define the type for the record parameters
@@ -26,92 +27,84 @@ type RegisterRecordParams = {
   recordDocument?: FormData;
   notes?: string;
 };
-
 export const registerRecord = async ({
-  recordDocument,
-  userId,
-  ...record
-}: RegisterRecordParams) => {
-  try {
-    // Upload file if provided
-    let filePath, fileId, bucket;
-    if (recordDocument) {
-      const fileName = recordDocument.get("fileName") as string;
-      const fileBlob = recordDocument.get("blobFile") as Blob;
-
-      // Create a folder structure: userId/records/fileName
-      filePath = `${userId}/records/${fileName}`;
-
-      const inputFile = InputFile.fromBlob(fileBlob, fileName);
-        let bucketExist = await storage.getBucket(BUCKET_ID!);
-       bucket = await storage.createBucket(
-        ID.unique(),
-        `user-${userId}-bucket`,
-        [Permission.read(Role.any()), Permission.delete(Role.user(userId))],
-        // [`user:${userId}`]
-    );
-
-      const file = await storage.createFile(
-        bucket.$id!,
-        ID.unique(),
-        inputFile,
-        [Permission.read(Role.any()), Permission.delete(Role.user(userId))] // Add permissions for the user
-      );
-
-      fileId = file.$id;
-    }
-
-    // Create new record document
-    const newRecord = await databases.createDocument(
-      DATABASE_ID!,
-      RECORD_COLLECTION_ID!,
-      ID.unique(),
-      {
-        userId,
-        recordDocumentId: fileId ?? null,
-        recordDocumentPath: filePath ?? null,
-        recordDocumentUrl: filePath
-          ? `${ENDPOINT}/storage/buckets/${bucket?.$id!}/files/${filePath}/view?project=${PROJECT_ID}`
-          : null,
-        ...record,
+    recordDocument,
+    userId,
+    ...record
+  }: RegisterRecordParams) => {
+    try {
+      let filePath: string, fileUrl;
+      if (recordDocument) {
+        const fileName = recordDocument.get("fileName") as string;
+        const fileBlob = recordDocument.get("blobFile") as Blob;
+  
+        // Create a folder structure: userId/records/fileName
+        const timestamp = new Date().getTime();
+        const file_name = `${randomUUID()}_${timestamp}_${fileName}`;
+        filePath = `users/${userId}/records/${file_name}`;
+  
+        const bucket = firebaseStorage.bucket();
+        const file = bucket.file(filePath);
+  
+        const stream = file.createWriteStream({
+          metadata: {
+            contentType: fileBlob.type,
+          },
+        });
+   
+          stream.on('error', (err: { message: any; }) => {
+            console.error("Error uploading file:", err);
+             
+          });
+  
+          stream.on('finish', async () => {
+            console.log("File uploaded successfully!");
+            await file.makePublic();
+            fileUrl = `https://storage.googleapis.com/${bucket.name}/${filePath}`;
+  
+            try {
+              // Create new record document
+              const newRecord = await databases.createDocument(
+                DATABASE_ID!,
+                RECORD_COLLECTION_ID!,
+                randomUUID(),
+                {
+                  userId,
+                  recordDocumentId: file_name,
+                  recordDocumentPath: filePath,
+                  recordDocumentUrl: fileUrl,
+                  ...record,
+                }
+              );
+  
+              return parseStringify(newRecord);
+            } catch (dbError) {
+              console.error("Error creating database record:", dbError);
+            
+            }
+          });
+  
+          const fileBuffer = await fileBlob.arrayBuffer();
+          stream.end(Buffer.from(fileBuffer));
+        
+      } else {
+        // If no document is uploaded, just create the database record
+        const newRecord = await databases.createDocument(
+          DATABASE_ID!,
+          RECORD_COLLECTION_ID!,
+          randomUUID(),
+          {
+            userId,
+            ...record,
+          }
+        );
+  
+        return parseStringify(newRecord);
       }
-    );
-
-    return parseStringify(newRecord);
-  } catch (error) {
-    console.error("An error occurred while creating a new record:", error);
-    throw error; // Re-throw the error to handle it in the calling function
-
-
-  }
-};
+    } catch (error) {
+      console.error("An error occurred while creating a new record:", error);
+      throw error;
+    }
+  };
 
 
-
-
-export async function getUserBucketId(userId: string): Promise<string> {
-  try {
-    
-
-    // Fetch the user document
-    const user = await databases.getDocument(
-      DATABASE_ID!,
-      PATIENT_COLLECTION_ID!,
-      userId
-    );
-    console.log('user', user);
-    // Check if the bucketId exists in the user document
-    
-    
-    // if (user.bucketId) {
-    //   return user.bucketId;
-    // } else {
-    //   throw new Error('Bucket ID not found for user');
-    // }
-  } catch (error) {
-    console.error('Error fetching user bucket ID:', error);
-    throw error;
-  }
-}
-
-getUserBucketId("123456");
