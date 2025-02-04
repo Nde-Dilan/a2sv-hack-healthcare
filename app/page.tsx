@@ -6,8 +6,11 @@ import { PasskeyModal } from "@/components/PasskeyModal";
 import RecordList from "@/components/record/RecordList";
 import { Button } from "@/components/ui/button";
 import UploadRecord from "@/components/forms/UploadRecord";
+import { Router } from "next/router";
+import { useRouter } from "next/navigation";
 
 const Home = ({ searchParams }: SearchParamProps) => {
+
   const isAdmin = searchParams?.admin === "true";
 
   const user = {
@@ -38,7 +41,7 @@ const Home = ({ searchParams }: SearchParamProps) => {
           </div>
           <br />
           <br />
-          <UploadRecord user={user} />
+          <RecordList  />
           <div>
             <Button className="add-record font-bold">
             Add record

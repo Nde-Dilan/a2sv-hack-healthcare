@@ -68,9 +68,10 @@ const UploadRecord = ({ user }: { user: User }) => {
       const newRecord = await registerRecord(record);
   
       if (newRecord) {
-        // Redirect to a record details page or a success page
-        // router.push(`/records/${newRecord.$id}`);
-
+        form.reset();
+          router.push(
+            `/patients/${userId}/new-appointment/success?appointmentId=${newRecord?.$id}`
+          );
         console.log("Record created successfully:", newRecord);
         
       }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AppointmentForm } from "@/components/forms/AppointmentForm";
 import { Button } from "@/components/ui/button";
 import { getPatient } from "@/lib/actions/patient.actions";
+import UploadRecord from "@/components/forms/UploadRecord";
 
 const Appointment = async ({ params: { userId } }: SearchParamProps) => {
   const patient = await getPatient(userId);
@@ -39,10 +40,7 @@ const Appointment = async ({ params: { userId } }: SearchParamProps) => {
             </div>
           </div>
 
-          <AppointmentForm
-            patientId={patient?.$id}
-            userId={userId}
-            type="create"
+          <UploadRecord user={patient}            
           />
 
           <p className="copyright mt-10 py-12">© 2024 CarePluse</p>
